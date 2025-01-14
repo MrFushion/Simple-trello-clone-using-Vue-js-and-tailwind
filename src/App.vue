@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import Draggable from 'vuedraggable'
-interface Card {
-  id: number
-  title: string
-  description: string
-}
-
-interface List {
-  id: number
-  title: string
-  cards: Card[]
-}
+import ModalDialog from './components/ModalDialog.vue'
+import type { List } from './types'
+import { ref } from 'vue'
 
 const lists = reactive<List[]>([
   {
@@ -36,6 +28,13 @@ const lists = reactive<List[]>([
     cards: [{ id: 5, title: 'Task 5', description: 'Description for Task 5' }],
   },
 ])
+const isModalOpen = ref(false)
+const openModal = () => {
+  isModalOpen.value = true
+}
+const closeModal = () => {
+  isModalOpen.value = false
+}
 </script>
 
 <template>
@@ -58,11 +57,13 @@ const lists = reactive<List[]>([
         </Draggable>
 
         <button
+          @click="openModal"
           class="w-full bg-transparent rounded hover:bg-white text-gray-500 p-2 text-left mt-2 text-sm font-medium"
         >
           +Add Card
         </button>
       </div>
     </div>
+    <ModalDialog :is-open="isModalOpen" @close="closeModal" />
   </main>
 </template>
