@@ -27,8 +27,8 @@ const emit = defineEmits<{
         class="w-full p-2 mb-4 border rounded"
         placeholder="Description"
         arial-label="Description"
-      >
-      </textarea>
+      />
+
       <div class="flex justify-end gap-2">
         <button
           @click="emit('close')"
